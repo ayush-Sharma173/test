@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavya's Mystery - What Makes You Sparkle</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container fade-in">
+        <h1>Level 2: What Makes Kavya Sparkle</h1>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 40%"></div>
+        </div>
+        
+        <div class="romantic-text">
+            Now for something special that will make your days brighter, Kavya...
+        </div>
+        
+        <div class="riddle-container">
+            <div class="riddle-text">
+                Small and smooth, it fits your palm,<br>
+                Pink as blush, it keeps you calm.<br>
+                Click and glide, it guides your way,<br>
+                Making work feel more like play.<br><br>
+                No trackpad needed, this gift's divine,<br>
+                Aesthetic beauty, perfectly fine.<br>
+                It'll sit beside you, faithful and true,<br>
+                This pretty companion, just for you.<br><br>
+                <em>What pink treasure am I describing, Kavya?</em>
+            </div>
+        </div>
+        
+        <div style="margin: 20px 0; font-size: 0.9em; color: #888; font-style: italic;">
+            💭 Navigate through this mystery with your gentle touch, Kavya... soon you'll have something even more beautiful to guide your way.
+        </div>
+        
+        <form id="riddleForm">
+            <div class="input-group">
+                <input type="text" id="riddleAnswer" placeholder="What am I thinking of?" required>
+            </div>
+            
+            <div id="message" style="display: none;"></div>
+            <button type="submit" class="btn">Solve the Riddle 🔮</button>
+        </form>
+        
+                    <div id="realization" style="display: none;">
+                <div class="realization-text">
+                    Maybe this journey isn't just about us, Kavya...<br>
+                    Maybe it's leading to something waiting especially for you? 🤔
+                </div>
+            
+            <div id="bonusRiddle" style="display: none; margin-top: 20px;">
+                <div style="background: linear-gradient(45deg, rgba(255, 192, 203, 0.2), rgba(255, 105, 180, 0.2)); padding: 25px; border-radius: 15px; border: 2px dashed #ff69b4;">
+                    <h4 style="color: #c2185b; margin-bottom: 15px;">🎯 Cryptic Challenge:</h4>
+                    <div style="font-style: italic; color: #8b4513; font-size: 1.1em; line-height: 1.6;">
+                        In crystal towers they stand in line,<br>
+                        Guardians of secrets, oh so divine.<br>
+                        One whispers magic through the air,<br>
+                        Another's sweetness beyond compare.<br><br>
+                        The third makes queens of mortal souls,<br>
+                        Each holds power, each controls.<br>
+                        When sprayed, they dance on morning light,<br>
+                        What are these vessels of delight? 🌟
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="margin-top: 20px; font-size: 0.9em; color: #888;">
+            Think about what brings you joy, Kavya... 🌸
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        setInterval(createHeart, 3000);
+        
+        // Handle form submission
+        document.getElementById('riddleForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const answer = document.getElementById('riddleAnswer').value;
+            const messageDiv = document.getElementById('message');
+            const realizationDiv = document.getElementById('realization');
+            
+            messageDiv.style.display = 'block';
+            messageDiv.innerHTML = '<p>Checking your answer... 🤔</p>';
+            
+            try {
+                const response = await fetch('/validate-level2', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ answer })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messageDiv.innerHTML = `
+                        <div class="success-message">
+                            <p>Yes, Kavya! A beautiful pink ${answer.toLowerCase()} just for you! ✨</p>
+                            <p>Now let's find where it's hiding...</p>
+                        </div>
+                    `;
+                    
+                    // Show realization after success
+                    setTimeout(() => {
+                        realizationDiv.style.display = 'block';
+                        realizationDiv.classList.add('fade-in');
+                        
+                        // Show bonus riddle after realization
+                        setTimeout(() => {
+                            document.getElementById('bonusRiddle').style.display = 'block';
+                            document.getElementById('bonusRiddle').classList.add('fade-in');
+                        }, 1500);
+                        
+                        // Add continue button after realization
+                        setTimeout(() => {
+                            const continueBtn = document.createElement('a');
+                            continueBtn.href = '/level3';
+                            continueBtn.className = 'btn';
+                            continueBtn.innerHTML = 'The mystery deepens... 🎁';
+                            continueBtn.style.marginTop = '20px';
+                            continueBtn.style.display = 'inline-block';
+                            realizationDiv.appendChild(continueBtn);
+                            
+                            // Add sparkle effect
+                            continueBtn.style.animation = 'gentle-glow 2s ease-in-out infinite';
+                        }, 4000);
+                    }, 2000);
+                    
+                } else {
+                    messageDiv.innerHTML = `
+                        <div style="background: rgba(255, 193, 7, 0.1); color: #e65100; padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <p>Think about what you use to navigate your computer, Kavya... 🖱️</p>
+                            <p>Something small, pink, and aesthetic that will replace your trackpad!</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = '<p style="color: red;">Something went wrong. Please try again.</p>';
+            }
+        });
+        
+        // Add some sparkles around the riddle
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.style.position = 'absolute';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.fontSize = '1.5em';
+            sparkle.style.opacity = '0';
+            sparkle.style.animation = 'sparkle-fade 3s ease-in-out infinite';
+            sparkle.style.pointerEvents = 'none';
+            
+            document.querySelector('.riddle-container').appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+        
+        // Add sparkle animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sparkle-fade {
+                0%, 100% { opacity: 0; transform: scale(0.5); }
+                50% { opacity: 1; transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        setInterval(createSparkle, 2000);
+    </script>
+</body>
+</html> 

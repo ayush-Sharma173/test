@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavya's Mystery - A Journey Through Us</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container fade-in">
+        <h1>Kavya's Mystery Journey</h1>
+        <div class="romantic-text">
+            Welcome to your journey, beautiful. Not a quiz. Not a game.<br>
+            A trail of our memories and magic.<br>
+            Just you and me, Kavya.
+        </div>
+        
+        <p>Something beautiful awaits at the end, just for you...</p>
+        <p>Are you ready to discover what it is, Kavya?</p>
+        
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 0%"></div>
+        </div>
+        
+        <a href="/level1" class="btn">Start the Mystery ✨</a>
+        
+        <div style="margin-top: 30px; font-size: 0.9em; color: #888;">
+            💝 Made with love for someone special
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        // Create hearts every 2 seconds
+        setInterval(createHeart, 2000);
+        
+        // Create initial hearts
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createHeart, i * 400);
+        }
+    </script>
+</body>
+</html> 

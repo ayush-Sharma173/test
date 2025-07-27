@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 You Found It, Kavya! 🎉</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container fade-in">
+        <h1>🎉 You Found It, Kavya! 🎉</h1>
+        
+        <div class="final-reveal">
+            <h2 style="color: #ff1493; margin-bottom: 30px;">🎉 You Found Your Gift, Kavya! 🎉</h2>
+            
+            <div style="background: linear-gradient(135deg, rgba(255, 192, 203, 0.3), rgba(255, 105, 180, 0.3)); padding: 40px; border-radius: 20px; border: 3px solid rgba(255, 105, 180, 0.5); margin: 30px 0;">
+                <h3 style="color: #c2185b; margin-bottom: 30px;">💖 Your Aesthetic Pink Mouse is Waiting! 💖</h3>
+                
+                <div style="margin: 20px 0;">
+                    <img src="images/gift-location-placeholder.jpeg" alt="Where Your Gift Waits" style="max-width: 350px; border-radius: 15px; box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4); border: 3px solid rgba(255, 105, 180, 0.6);">
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #888; font-style: italic;">
+                        📸 Replace this with a photo showing the exact hiding spot behind your mists!
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 15px; margin: 30px 0; border: 2px solid #ff69b4;">
+                    <h4 style="color: #c2185b; margin-bottom: 20px; font-size: 1.4em;">🎁 Your Gift is Here:</h4>
+                    <p style="font-size: 1.3em; color: #4a4a4a; line-height: 1.8; font-weight: 500;">
+                        <strong>Go to your Victoria's Secret collection</strong><br>
+                        <strong>Look BEHIND your Bombshell, Love Spell, and Peach mists</strong><br>
+                        <strong>Your beautiful pink mouse is hiding there! 🐁💕</strong>
+                    </p>
+                </div>
+                
+                <div style="font-size: 1.3em; color: #4a4a4a; line-height: 1.8; text-align: center;">
+                    <p><strong>You did it, Kavya!</strong></p>
+                    <p>You solved every riddle, uncovered every clue!</p>
+                    <p>Now go get your aesthetic pink mouse! 🌸✨</p>
+                </div>
+                
+                <div style="margin: 30px 0; padding: 25px; background: rgba(255, 255, 255, 0.9); border-radius: 15px;">
+                    <p style="font-size: 1.2em; color: #4a4a4a; line-height: 1.8;">
+                        <strong>💕 From Ayush to Kavya:</strong><br><br>
+                        This little adventure was my way of showing you how special you are to me. 
+                        Every riddle, every clue, every moment of this journey was crafted with love, 
+                        just like every day I get to spend with you.
+                    </p>
+                    <p style="font-size: 1.2em; color: #4a4a4a; line-height: 1.8; margin-top: 20px;">
+                        I hope your aesthetic pink mouse brings a smile to your face every time you use it, 
+                        and reminds you that you are loved, cherished, and absolutely perfect just the way you are.
+                    </p>
+                    <p style="font-size: 1.2em; color: #4a4a4a; line-height: 1.8; margin-top: 20px;">
+                        No more trackpad struggles - now you have something beautiful and functional, 
+                        just like the amazing person you are! 🌸✨
+                    </p>
+                </div>
+                
+                <div style="margin-top: 30px; font-size: 1.5em; color: #c2185b; text-align: center;">
+                    Forever yours with all my love, ❤️<br>
+                    <em style="font-size: 1.3em; font-weight: bold;">Ayush</em>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center;">
+                <button onclick="createMegaFireworks()" class="btn" style="font-size: 1.3em; padding: 20px 40px; background: linear-gradient(45deg, #ff1493, #ff69b4); animation: gentle-glow 2s ease-in-out infinite;">
+                    🎆 Celebrate Your Pink Mouse! 🎆
+                </button>
+                
+                <div style="margin-top: 20px; font-size: 1.1em; color: #c2185b;">
+                    🐁💕 Say goodbye to that old trackpad...<br>
+                    You've got something much prettier now! 🌸
+                </div>
+                
+                <div style="margin-top: 30px; font-size: 0.9em; color: #888;">
+                    Enjoy your new aesthetic pink mouse, Kavya! 💖<br>
+                    <em>Made with love and lots of mystery! ✨</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation - MEGA CELEBRATION MODE
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['💕', '💖', '💝', '💗', '💘', '🌸', '✨', '🎉'][Math.floor(Math.random() * 8)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 1 + 's';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            heart.style.fontSize = (Math.random() * 15 + 25) + 'px';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        
+        // Create hearts every 500ms for celebration
+        setInterval(createHeart, 500);
+        
+        // Create mega fireworks effect
+        function createMegaFireworks() {
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    createFireworkParticle();
+                }, i * 30);
+            }
+            
+            // Just fireworks, no alert needed
+        }
+        
+        function createFireworkParticle() {
+            const particle = document.createElement('div');
+            particle.innerHTML = ['🎆', '✨', '💫', '⭐', '🌟', '💖', '💕', '🌸', '🎉', '🐁'][Math.floor(Math.random() * 10)];
+            particle.style.position = 'fixed';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            particle.style.fontSize = (Math.random() * 25 + 25) + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1000';
+            particle.style.animation = `mega-firework-${Math.floor(Math.random() * 4)} 3s ease-out forwards`;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 3000);
+        }
+        
+        // Add mega firework animations
+        const megaFireworkStyle = document.createElement('style');
+        megaFireworkStyle.textContent = `
+            @keyframes mega-firework-0 {
+                0% { opacity: 1; transform: scale(0.1) translateY(0) rotate(0deg); }
+                50% { opacity: 1; transform: scale(2) translateY(-150px) rotate(180deg); }
+                100% { opacity: 0; transform: scale(0.1) translateY(-300px) rotate(360deg); }
+            }
+            
+            @keyframes mega-firework-1 {
+                0% { opacity: 1; transform: scale(0.1) translateX(0) rotate(0deg); }
+                50% { opacity: 1; transform: scale(1.8) translateX(-200px) rotate(90deg); }
+                100% { opacity: 0; transform: scale(0.1) translateX(-400px) rotate(180deg); }
+            }
+            
+            @keyframes mega-firework-2 {
+                0% { opacity: 1; transform: scale(0.1) rotate(0deg) translateY(0); }
+                25% { opacity: 1; transform: scale(1.5) rotate(90deg) translateY(-100px); }
+                75% { opacity: 1; transform: scale(2.2) rotate(270deg) translateY(-50px); }
+                100% { opacity: 0; transform: scale(0.1) rotate(360deg) translateY(-200px); }
+            }
+            
+            @keyframes mega-firework-3 {
+                0% { opacity: 1; transform: scale(0.1) translateX(0) translateY(0); }
+                33% { opacity: 1; transform: scale(1.8) translateX(150px) translateY(-100px); }
+                66% { opacity: 1; transform: scale(1.2) translateX(-100px) translateY(-200px); }
+                100% { opacity: 0; transform: scale(0.1) translateX(200px) translateY(-300px); }
+            }
+        `;
+        document.head.appendChild(megaFireworkStyle);
+        
+        // Auto-celebration when page loads
+        setTimeout(() => {
+            createMegaFireworks();
+        }, 2000);
+        
+        // Create magical background
+        document.body.style.background = 'linear-gradient(135deg, #ff69b4 0%, #ffc0cb 25%, #ff1493 50%, #da70d6 75%, #ff69b4 100%)';
+        document.body.style.backgroundSize = '600% 600%';
+        document.body.style.animation = 'celebration-gradient 8s ease infinite';
+        
+        const celebrationStyle = document.createElement('style');
+        celebrationStyle.textContent = `
+            @keyframes celebration-gradient {
+                0% { background-position: 0% 50%; }
+                25% { background-position: 100% 25%; }
+                50% { background-position: 50% 100%; }
+                75% { background-position: 25% 0%; }
+                100% { background-position: 0% 50%; }
+            }
+        `;
+        document.head.appendChild(celebrationStyle);
+    </script>
+</body>
+</html> 
