@@ -39,9 +39,11 @@
 5. Click **"Save"**
 
 ### Step 3: Access Your Website
-- GitHub will provide a URL like: `https://yourusername.github.io/repository-name`
-- Your mystery website will be live at that URL!
-- `index.html` will automatically load as the homepage
+- Your mystery website will be live at: `https://ayush-sharma173.github.io/test/`
+- Navigation will work correctly with the `/test/` path structure:
+  - Level 1: `https://ayush-sharma173.github.io/test/level1.html`
+  - Level 2: `https://ayush-sharma173.github.io/test/level2.html`
+  - Final: `https://ayush-sharma173.github.io/test/final.html`
 
 ## 🔧 Local Development (Optional)
 If you want to test locally before deploying:

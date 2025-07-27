@@ -108,14 +108,14 @@
                         e.preventDefault();
                         if (!redirected) {
                             redirected = true;
-                            window.location.href = 'final.html';
+                            window.location.href = '/test/final.html';
                         }
                     };
                     
                     // Auto redirect after timeout
                     setTimeout(() => {
                         if (!redirected) {
-                            window.location.href = 'final.html';
+                            window.location.href = '/test/final.html';
                         }
                     }, 6000);
                 } else {
