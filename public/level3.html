@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavya's Journey - Your Special Place</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container fade-in">
+        <h1>Level 3: Our Special Place</h1>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 60%"></div>
+        </div>
+        
+        <div class="romantic-text">
+            Even though we're miles apart, we connect every day, Kavya...
+        </div>
+        
+        <div class="riddle-container">
+            <div class="riddle-text">
+                Miles apart but hearts so near,<br>
+                Through a screen I see you clear.<br>
+                In your private, cozy space,<br>
+                Where I love to see your face.<br><br>
+                Late night calls and morning greets,<br>
+                Where you sit with me on Meet.<br>
+                Your safe haven, your personal dome,<br>
+                <em>What do you call this space, your...</em>
+            </div>
+        </div>
+        
+        <form id="locationForm" style="margin-top: 30px;">
+            <div class="input-group">
+                <input type="text" id="locationAnswer" placeholder="Where do you video call me from?" required>
+            </div>
+            
+            <div id="locationMessage" style="display: none;"></div>
+            <button type="submit" class="btn">Continue to Level 4 🌟</button>
+        </form>
+        
+        <div style="margin-top: 20px; font-size: 0.9em; color: #888;">
+            Where do you call me from every day, beautiful... 💕📱
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        setInterval(createHeart, 3000);
+        
+        // Clean level 3 - just riddle form, no image interactions needed
+        
+        // Handle location form submission
+        document.getElementById('locationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const answer = document.getElementById('locationAnswer').value;
+            const messageDiv = document.getElementById('locationMessage');
+            
+            messageDiv.style.display = 'block';
+            messageDiv.innerHTML = '<p>Checking your answer... 🤔</p>';
+            
+            try {
+                const response = await fetch('/validate-level3', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ answer })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messageDiv.innerHTML = `
+                        <div class="success-message">
+                            <p>Perfect, Kavya! Our special ${answer.toLowerCase()} where love grows... ✨</p>
+                            <p>Now let's look at something familiar there...</p>
+                        </div>
+                    `;
+                    
+                    // Change button to allow early redirect
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = 'Continue to Level 4 🌟 (or wait 5 seconds)';
+                    submitBtn.style.animation = 'gentle-glow 1s ease-in-out infinite';
+                    
+                    // Allow immediate redirect on button click
+                    let redirected = false;
+                    submitBtn.onclick = function(e) {
+                        e.preventDefault();
+                        if (!redirected) {
+                            redirected = true;
+                            window.location.href = '/level4';
+                        }
+                    };
+                    
+                    // Auto redirect after timeout
+                    setTimeout(() => {
+                        if (!redirected) {
+                            window.location.href = '/level4';
+                        }
+                    }, 5000);
+                } else {
+                    messageDiv.innerHTML = `
+                        <div style="background: rgba(255, 193, 7, 0.1); color: #e65100; padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <p>Think about your personal space where you video call me, Kavya... 🤔</p>
+                            <p>Where do you sit when we have our Google Meet sessions? 💕</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = '<p style="color: red;">Something went wrong. Please try again.</p>';
+            }
+        });
+    </script>
+</body>
+</html> 

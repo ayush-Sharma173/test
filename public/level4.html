@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message for Kavya</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container fade-in">
+        <h1>Level 4: A Message for Kavya</h1>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 80%"></div>
+        </div>
+        
+        <div class="romantic-text">
+            Look closely at this familiar sight, Kavya...
+        </div>
+        
+        <div class="puzzle-container">
+            <div style="margin: 20px 0;">
+                <img src="images/almirah-placeholder.jpeg" alt="Something Familiar" style="max-width: 400px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);">
+            </div>
+            
+            <div style="background: rgba(255, 192, 203, 0.1); padding: 25px; border-radius: 15px; margin: 20px 0; border-left: 4px solid #ff69b4;">
+                <p style="font-size: 1.2em; color: #4a4a4a; line-height: 1.8; text-align: center;">
+                    You see this every day, Kavya...<br>
+                    But have you looked at it closely today? 👀<br><br>
+                    <em>Something new might be waiting there...</em>
+                </p>
+            </div>
+        </div>
+        
+        <form id="giftForm">
+            <div class="input-group">
+                <input type="text" id="giftAnswer" placeholder="What do you call this furniture?" required>
+            </div>
+            
+            <div id="message" style="display: none;"></div>
+            <button type="submit" class="btn">Almost there... 🎁</button>
+        </form>
+        
+        <div style="margin-top: 20px; font-size: 0.9em; color: #888;">
+            Let the words touch your heart, Kavya... 💕
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        setInterval(createHeart, 2000);
+        
+        // Handle gift form submission
+        document.getElementById('giftForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const answer = document.getElementById('giftAnswer').value;
+            const messageDiv = document.getElementById('message');
+            
+            messageDiv.style.display = 'block';
+            messageDiv.innerHTML = '<p>Checking your answer... 🎁</p>';
+            
+            try {
+                const response = await fetch('/validate-level4', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ answer })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messageDiv.innerHTML = `
+                        <div class="success-message">
+                            <p>Exactly right, Kavya! Your ${answer.toLowerCase()} holds a secret... ✨</p>
+                            <p>Time to discover what's waiting there!</p>
+                        </div>
+                    `;
+                    
+                    // Change button to allow early redirect
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = 'Continue to Level 5 🎁 (or wait 5 seconds)';
+                    submitBtn.style.animation = 'gentle-glow 1s ease-in-out infinite';
+                    
+                    // Allow immediate redirect on button click
+                    let redirected = false;
+                    submitBtn.onclick = function(e) {
+                        e.preventDefault();
+                        if (!redirected) {
+                            redirected = true;
+                            window.location.href = '/level5';
+                        }
+                    };
+                    
+                    // Auto redirect after timeout
+                    setTimeout(() => {
+                        if (!redirected) {
+                            window.location.href = '/level5';
+                        }
+                    }, 5000);
+                } else {
+                    messageDiv.innerHTML = `
+                        <div style="background: rgba(255, 193, 7, 0.1); color: #e65100; padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <p>Think about what you call this piece of furniture, Kavya... 🤔</p>
+                            <p>Where you store your clothes and treasures!</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = '<p style="color: red;">Something went wrong. Please try again.</p>';
+            }
+        });
+        
+        // Create more romantic atmosphere
+        document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ff9a9e 100%)';
+        document.body.style.backgroundSize = '400% 400%';
+        document.body.style.animation = 'romantic-gradient 10s ease infinite';
+        
+        const romanticStyle = document.createElement('style');
+        romanticStyle.textContent = `
+            @keyframes romantic-gradient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+            
+            .typewriter-container {
+                border: 2px solid rgba(255, 255, 255, 0.3);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            }
+        `;
+        document.head.appendChild(romanticStyle);
+    </script>
+</body>
+</html> 

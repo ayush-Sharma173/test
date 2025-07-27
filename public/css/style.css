@@ -1,0 +1,385 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Georgia', serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    overflow-x: hidden;
+    cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="%23ff69b4" stroke="%23fff" stroke-width="2" opacity="0.8"/></svg>'), auto;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 182, 193, 0.1), transparent);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes shimmer {
+    0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 1.8em;
+    color: #667eea;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.romantic-text {
+    font-style: italic;
+    color: #764ba2;
+    font-size: 1.1em;
+    margin: 30px 0;
+    padding: 20px;
+    background: linear-gradient(45deg, rgba(255, 182, 193, 0.1), rgba(221, 160, 221, 0.1));
+    border-radius: 10px;
+    border-left: 4px solid #ff69b4;
+}
+
+.btn {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a6f);
+    color: white;
+    padding: 15px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px;
+    font-family: inherit;
+    box-shadow: 0 8px 15px rgba(238, 90, 111, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 25px rgba(238, 90, 111, 0.4);
+    background: linear-gradient(45deg, #ee5a6f, #ff6b6b);
+    cursor: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%23ff1493" stroke="%23fff" stroke-width="2"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="12">💕</text></svg>'), pointer;
+}
+
+.btn:active {
+    transform: translateY(-1px);
+}
+
+.question-container {
+    background: rgba(102, 126, 234, 0.05);
+    padding: 30px;
+    border-radius: 15px;
+    margin: 20px 0;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.question {
+    font-size: 1.3em;
+    color: #4a4a4a;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.option {
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(102, 126, 234, 0.2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: left;
+}
+
+.option:hover {
+    background: rgba(102, 126, 234, 0.1);
+    border-color: #667eea;
+    transform: translateX(5px);
+}
+
+.option.selected {
+    background: linear-gradient(45deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+    border-color: #667eea;
+    color: #4a4a4a;
+    font-weight: 500;
+}
+
+.riddle-container {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(255, 182, 193, 0.1));
+    padding: 40px;
+    border-radius: 20px;
+    margin: 30px 0;
+    border: 2px solid rgba(255, 215, 0, 0.3);
+    position: relative;
+}
+
+.riddle-container::before {
+    content: "🌸";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    background: white;
+    padding: 5px 15px;
+    border-radius: 50%;
+}
+
+.riddle-text {
+    font-size: 1.4em;
+    font-style: italic;
+    color: #8b4513;
+    line-height: 1.8;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin: 30px 0;
+    position: relative;
+}
+
+input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 15px 20px;
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 25px;
+    font-size: 1.1em;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+    background: white;
+}
+
+.puzzle-container {
+    margin: 30px 0;
+    padding: 20px;
+    background: rgba(118, 75, 162, 0.05);
+    border-radius: 15px;
+    border: 1px dashed rgba(118, 75, 162, 0.3);
+}
+
+.puzzle-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    filter: blur(5px);
+}
+
+.puzzle-image:hover {
+    transform: scale(1.05);
+}
+
+.puzzle-image.revealed {
+    filter: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.typewriter {
+    font-size: 1.3em;
+    color: #4a4a4a;
+    margin: 20px 0;
+    min-height: 1.5em;
+    border-right: 2px solid #667eea;
+    animation: blink-cursor 1s infinite;
+}
+
+@keyframes blink-cursor {
+    0%, 50% { border-color: #667eea; }
+    51%, 100% { border-color: transparent; }
+}
+
+.hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    color: #ff69b4;
+    font-size: 20px;
+    opacity: 0.7;
+    animation: float-hearts 6s infinite linear;
+}
+
+@keyframes float-hearts {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.7; }
+    100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+}
+
+.progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(102, 126, 234, 0.2);
+    border-radius: 3px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    border-radius: 3px;
+    transition: width 0.8s ease;
+}
+
+.success-message {
+    background: linear-gradient(45deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.1));
+    color: #2e7d32;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid #4caf50;
+    margin: 20px 0;
+    font-weight: 500;
+}
+
+.realization-text {
+    background: linear-gradient(45deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.1));
+    color: #e65100;
+    padding: 25px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 193, 7, 0.3);
+    margin: 30px 0;
+    font-size: 1.2em;
+    font-weight: 500;
+    position: relative;
+}
+
+.realization-text::before {
+    content: "💡";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 1.5em;
+}
+
+.final-reveal {
+    background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(186, 85, 211, 0.1));
+    padding: 40px;
+    border-radius: 20px;
+    border: 3px solid rgba(255, 20, 147, 0.3);
+    margin: 30px 0;
+    position: relative;
+    animation: gentle-glow 3s ease-in-out infinite;
+}
+
+@keyframes gentle-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 20, 147, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(255, 20, 147, 0.5); }
+}
+
+.final-reveal::before {
+    content: "🎁";
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 2em;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    h2 {
+        font-size: 1.5em;
+    }
+    
+    .btn {
+        padding: 12px 30px;
+        font-size: 1em;
+    }
+    
+    .options {
+        gap: 10px;
+    }
+    
+    .option {
+        padding: 12px 15px;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+} 

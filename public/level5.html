@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Level 5 - Where is Kavya's Gift?</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container fade-in">
+        <h1>Level 5: Find Kavya's Gift</h1>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 100%"></div>
+        </div>
+        
+        <div class="final-reveal">
+            <h2 style="color: #ff1493; margin-bottom: 30px;">Almost There, Kavya!</h2>
+            
+            <div style="font-size: 1.4em; color: #4a4a4a; line-height: 1.8; margin-bottom: 30px;">
+                <div class="typewriter" id="finalMessage"></div>
+            </div>
+            
+            <div id="finalInstructions" style="display: none;">
+                <div class="riddle-container">
+                    <div class="riddle-text">
+                        Where Bombshell, Love Spell, and Peach reside,<br>
+                        Your pink mouse hides close by their side.<br>
+                        Not in front where eyes can see,<br>
+                        But tucked away so carefully.<br><br>
+                        Look around, but not ahead,<br>
+                        Check the corners where gifts are led.<br><br>
+                        <em>Where exactly should Kavya look?</em>
+                    </div>
+                </div>
+                
+                <form id="locationForm">
+                    <div class="input-group">
+                        <input type="text" id="locationAnswer" placeholder="Where should I look for my gift?" required>
+                    </div>
+                    
+                    <div id="message" style="display: none;"></div>
+                    <button type="submit" class="btn">Find My Gift! 🎁</button>
+                </form>
+            </div>
+            
+
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation - more intense for final page
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = ['💕', '💖', '💝', '💗', '💘'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            heart.style.animationDuration = (Math.random() * 2 + 4) + 's';
+            heart.style.fontSize = (Math.random() * 10 + 20) + 'px';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        setInterval(createHeart, 1000);
+        
+        // Show instructions immediately
+        setTimeout(() => {
+            document.getElementById('finalInstructions').style.display = 'block';
+            document.getElementById('finalInstructions').classList.add('fade-in');
+        }, 1000);
+        
+        // Handle location form submission
+        document.getElementById('locationForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const answer = document.getElementById('locationAnswer').value;
+            const messageDiv = document.getElementById('message');
+            
+            messageDiv.style.display = 'block';
+            messageDiv.innerHTML = '<p>Checking your answer... 🎁</p>';
+            
+            try {
+                const response = await fetch('/validate-level5', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ answer })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messageDiv.innerHTML = `
+                        <div class="success-message">
+                            <p>Perfect, Kavya! Go look ${answer.toLowerCase()} your mists! ✨</p>
+                            <p>Your beautiful pink mouse is waiting for you there!</p>
+                        </div>
+                    `;
+                    
+                    // Change button to allow early redirect
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = 'See Final Reveal! 🎁 (or wait 6 seconds)';
+                    submitBtn.style.animation = 'gentle-glow 1s ease-in-out infinite';
+                    
+                    // Allow immediate redirect on button click
+                    let redirected = false;
+                    submitBtn.onclick = function(e) {
+                        e.preventDefault();
+                        if (!redirected) {
+                            redirected = true;
+                            window.location.href = '/final';
+                        }
+                    };
+                    
+                    // Auto redirect after timeout
+                    setTimeout(() => {
+                        if (!redirected) {
+                            window.location.href = '/final';
+                        }
+                    }, 6000);
+                } else {
+                    messageDiv.innerHTML = `
+                        <div style="background: rgba(255, 193, 7, 0.1); color: #e65100; padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <p>Think about where something would be hidden near your mists... 🤔</p>
+                            <p>Not in front, but tucked away to the side or behind them!</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = '<p style="color: red;">Something went wrong. Please try again.</p>';
+            }
+        });
+        
+        // Create fireworks effect
+        function createFireworks() {
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    createFireworkParticle();
+                }, i * 50);
+            }
+        }
+        
+        function createFireworkParticle() {
+            const particle = document.createElement('div');
+            particle.innerHTML = ['🎆', '✨', '💫', '⭐', '🌟', '💖', '💕'][Math.floor(Math.random() * 7)];
+            particle.style.position = 'fixed';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = Math.random() * window.innerHeight + 'px';
+            particle.style.fontSize = (Math.random() * 20 + 20) + 'px';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1000';
+            particle.style.animation = `firework-${Math.floor(Math.random() * 3)} 2s ease-out forwards`;
+            
+            document.body.appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 2000);
+        }
+        
+        // Add firework animations
+        const fireworkStyle = document.createElement('style');
+        fireworkStyle.textContent = `
+            @keyframes firework-0 {
+                0% { opacity: 1; transform: scale(0.1) translateY(0); }
+                50% { opacity: 1; transform: scale(1.5) translateY(-100px); }
+                100% { opacity: 0; transform: scale(0.1) translateY(-200px); }
+            }
+            
+            @keyframes firework-1 {
+                0% { opacity: 1; transform: scale(0.1) translateX(0); }
+                50% { opacity: 1; transform: scale(1.2) translateX(-150px); }
+                100% { opacity: 0; transform: scale(0.1) translateX(-300px); }
+            }
+            
+            @keyframes firework-2 {
+                0% { opacity: 1; transform: scale(0.1) rotate(0deg); }
+                50% { opacity: 1; transform: scale(1.8) rotate(180deg); }
+                100% { opacity: 0; transform: scale(0.1) rotate(360deg); }
+            }
+            
+            .cursor {
+                animation: blink 1s infinite;
+            }
+            
+            @keyframes blink {
+                0%, 50% { opacity: 1; }
+                51%, 100% { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(fireworkStyle);
+        
+        // Removed typewriter, now showing form directly
+        
+        // Create magical background
+        document.body.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 25%, #ff9a9e 50%, #fecfef 75%, #fecfef 100%)';
+        document.body.style.backgroundSize = '500% 500%';
+        document.body.style.animation = 'magical-gradient 15s ease infinite';
+        
+        const magicalStyle = document.createElement('style');
+        magicalStyle.textContent = `
+            @keyframes magical-gradient {
+                0% { background-position: 0% 50%; }
+                25% { background-position: 100% 50%; }
+                50% { background-position: 100% 100%; }
+                75% { background-position: 0% 100%; }
+                100% { background-position: 0% 50%; }
+            }
+        `;
+        document.head.appendChild(magicalStyle);
+        
+        // Auto-celebrate after everything loads
+        setTimeout(() => {
+            createFireworks();
+        }, 8000);
+    </script>
+</body>
+</html> 

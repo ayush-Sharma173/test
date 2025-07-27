@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavya's Journey - Our Special Moments</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container fade-in">
+        <h1>Level 1: Our Special Moments, Kavya</h1>
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: 20%"></div>
+        </div>
+        
+        <div class="romantic-text">
+            Let's start with our beginning, Kavya...
+        </div>
+        
+        <div class="riddle-container">
+            <div class="riddle-text">
+                Where conversations flowed like morning brew,<br>
+                Where I first knew my heart belonged to you.<br>
+                Steam rising up, hearts drawing near,<br>
+                In that cozy place, love became clear.<br><br>
+                <em>What place am I thinking of, Kavya?</em>
+            </div>
+        </div>
+        
+        <form id="riddleForm">
+            <div class="input-group">
+                <input type="text" id="riddleAnswer" placeholder="Where did our love story begin?" required>
+            </div>
+            
+            <div id="message" style="display: none;"></div>
+            <button type="submit" class="btn">Continue the Journey 💫</button>
+        </form>
+        
+        <div style="margin-top: 20px; font-size: 0.9em; color: #888;">
+            Remember our story, Kavya... ❤️
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts animation
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💕';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 3 + 's';
+            heart.style.animationDuration = (Math.random() * 3 + 3) + 's';
+            document.getElementById('hearts').appendChild(heart);
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+        
+        setInterval(createHeart, 3000);
+        
+        // Handle form submission
+        document.getElementById('riddleForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const answer = document.getElementById('riddleAnswer').value;
+            const messageDiv = document.getElementById('message');
+            
+            messageDiv.style.display = 'block';
+            messageDiv.innerHTML = '<p>Checking your answer... 💭</p>';
+            
+            try {
+                const response = await fetch('/validate-level1', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ answer })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    messageDiv.innerHTML = `
+                        <div class="success-message">
+                            <p>Perfect, Kavya! That's exactly where our love story began... ✨</p>
+                            <p><em>"Love hides in the little things. So does this mystery."</em></p>
+                        </div>
+                    `;
+                    
+                    // Change button to allow early redirect
+                    const submitBtn = document.querySelector('button[type="submit"]');
+                    submitBtn.innerHTML = 'Continue to Level 2 ✨ (or wait 5 seconds)';
+                    submitBtn.style.animation = 'gentle-glow 1s ease-in-out infinite';
+                    
+                    // Allow immediate redirect on button click
+                    let redirected = false;
+                    submitBtn.onclick = function(e) {
+                        e.preventDefault();
+                        if (!redirected) {
+                            redirected = true;
+                            window.location.href = '/level2';
+                        }
+                    };
+                    
+                    // Auto redirect after timeout
+                    setTimeout(() => {
+                        if (!redirected) {
+                            window.location.href = '/level2';
+                        }
+                    }, 5000);
+                } else {
+                    messageDiv.innerHTML = `
+                        <div style="background: rgba(255, 193, 7, 0.1); color: #e65100; padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800;">
+                            <p>Not quite right, beautiful... 💭</p>
+                            <p>Think about the special place that brought us together...</p>
+                            <p><em>Where we first connected, where our story began! ☕</em></p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                messageDiv.innerHTML = '<p style="color: red;">Something went wrong. Please try again.</p>';
+            }
+        });
+    </script>
+</body>
+</html> 
