@@ -76,15 +76,9 @@
             messageDiv.innerHTML = '<p>Checking your answer... 🎁</p>';
             
             try {
-                const response = await fetch('/validate-level4', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ answer })
-                });
-                
-                const result = await response.json();
+                // Client-side validation for GitHub Pages
+                const correctAnswers = ['almirah', 'wardrobe', 'closet', 'dresser'];
+                const result = { success: correctAnswers.includes(answer.toLowerCase().trim()) };
                 
                 if (result.success) {
                     messageDiv.innerHTML = `
@@ -105,14 +99,14 @@
                         e.preventDefault();
                         if (!redirected) {
                             redirected = true;
-                            window.location.href = '/level5';
+                            window.location.href = 'level5.html';
                         }
                     };
                     
                     // Auto redirect after timeout
                     setTimeout(() => {
                         if (!redirected) {
-                            window.location.href = '/level5';
+                            window.location.href = 'level5.html';
                         }
                     }, 5000);
                 } else {

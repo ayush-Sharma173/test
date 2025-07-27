@@ -62,4 +62,6 @@ Before going live, replace these with actual photos:
 ✅ Custom animations and effects  
 ✅ Personalized content for Kavya  
 ✅ Static website (no server required)  
-✅ Direct browser navigation between levels 
+✅ Direct browser navigation between levels  
+✅ Client-side validation (works without backend)  
+✅ Relative path navigation (works in subdirectories) 

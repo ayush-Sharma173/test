@@ -104,15 +104,9 @@
             messageDiv.innerHTML = '<p>Checking your answer... 🤔</p>';
             
             try {
-                const response = await fetch('/validate-level2', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ answer })
-                });
-                
-                const result = await response.json();
+                // Client-side validation for GitHub Pages
+                const correctAnswers = ['mouse', 'computer mouse', 'pink mouse'];
+                const result = { success: correctAnswers.includes(answer.toLowerCase().trim()) };
                 
                 if (result.success) {
                     messageDiv.innerHTML = `
@@ -136,7 +130,7 @@
                         // Add continue button after realization
                         setTimeout(() => {
                             const continueBtn = document.createElement('a');
-                            continueBtn.href = '/level3';
+                            continueBtn.href = 'level3.html';
                             continueBtn.className = 'btn';
                             continueBtn.innerHTML = 'The mystery deepens... 🎁';
                             continueBtn.style.marginTop = '20px';
